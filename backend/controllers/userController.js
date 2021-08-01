@@ -98,3 +98,30 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
         throw new Error('User not found!')
     }
 })
+
+
+// @desc    Get all users
+// @route   GET  /api/users
+// @access  Private/Admin
+export const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.json(users)
+})
+
+
+// @desc    Delete a user
+// @route   Delete  /api/users/api
+// @access  Private/Admin
+export const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    //console.log(user)
+    if (user) {
+        await user.remove()
+        // res.json({ message: 'User removed' })
+        res.send('User removed')
+    } else {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+})
