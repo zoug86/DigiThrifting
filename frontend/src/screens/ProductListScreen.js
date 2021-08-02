@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUsers, deleteUser } from '../actions/userActions'
+import { listUsers, deleteUser } from '../actions/productActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import { USER_LIST_RESET } from '../constants/userConstants'
 
 
-const UserListScreen = ({ history }) => {
+const ProductListScreen = ({ history }) => {
     const dispatch = useDispatch()
     const { users, error, loading } = useSelector(state => state.userList)
     const { userInfo } = useSelector(state => state.userLogin)
@@ -71,4 +71,4 @@ const UserListScreen = ({ history }) => {
     )
 }
 
-export default UserListScreen
+export default ProductListScreen
