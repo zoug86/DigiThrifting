@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Helmet } from 'react-helmet'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
@@ -8,6 +7,8 @@ import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 import Paginate from '../components/Paginate'
 import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
+import { Link } from 'react-router-dom'
 
 const HomeScreen = ({ match }) => {
     const keyword = match.params.keyword
@@ -20,12 +21,8 @@ const HomeScreen = ({ match }) => {
 
     return (
         <>
-            <Helmet>
-                <title>Welcome to Applezon | Home</title>
-                <meta name='description' content='We sell the best products for cheap' />
-                <meta name='keywords' content='electronics, buy electronics, cheap electronics' />
-            </Helmet>
-            {!keyword && <ProductCarousel />}
+            <Meta />
+            {!keyword ? <ProductCarousel /> : <Link to='/' className='btn btn-light'>Go Back</Link>}
             <h1>Latest Products</h1>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                 <>
