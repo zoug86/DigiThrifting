@@ -12,7 +12,7 @@ const Meta = ({ title, description, keywords }) => {
 }
 
 Meta.defaultProps = {
-    title: 'Welcome to Applezon',
+    title: 'Welcome to DigiThrifting',
     keywords: 'electronics, buy electronics, cheap electronics',
     description: 'We sell the best products for cheap'
 }
