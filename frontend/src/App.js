@@ -22,7 +22,7 @@ import OrderListScreen from './screens/OrderListScreen'
 const App = () => {
   return (
     <Router>
-      <Header />
+      <Route render={({ history }) => < Header history={history} />} />
       <main className="py-3">
         <Container>
           <Route path='/order/:id' component={OrderScreen} />

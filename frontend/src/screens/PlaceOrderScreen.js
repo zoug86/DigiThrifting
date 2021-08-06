@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
+import Loader from '../components/Loader'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 const PlaceOrderScreen = ({ history }) => {
     const cart = useSelector(state => state.cart)
@@ -19,11 +22,13 @@ const PlaceOrderScreen = ({ history }) => {
     cart.totalPrice = addDecimals(Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice))
 
     const dispatch = useDispatch()
-    const { order, success, error } = useSelector(state => state.orderCreate)
+    const { order, success, error, loading } = useSelector(state => state.orderCreate)
 
     useEffect(() => {
         if (success) {
             history.push(`/order/${order._id}`)
+            dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: ORDER_CREATE_RESET })
         }
         // eslint-disable-next-line
     }, [history, success])
@@ -41,6 +46,7 @@ const PlaceOrderScreen = ({ history }) => {
     return (
         <>
             <CheckoutSteps step1 step2 step3 step4 />
+
             <Row>
                 <Col md={8}>
                     <ListGroup variant='flush'>
@@ -63,7 +69,7 @@ const PlaceOrderScreen = ({ history }) => {
                                 (
                                     <ListGroup variant='flush'>
                                         {cart.cartItems.map((item, i) => (
-                                            <ListGroupItem key={i}>
+                                            <ListGroup.Item key={i}>
                                                 <Row>
                                                     <Col md={1}>
                                                         <Image src={item.image} alt={item.name} fluid rounded />
@@ -75,7 +81,7 @@ const PlaceOrderScreen = ({ history }) => {
                                                         {item.qty} x ${item.price} = ${item.price * item.qty}
                                                     </Col>
                                                 </Row>
-                                            </ListGroupItem>
+                                            </ListGroup.Item>
                                         ))}
 
                                     </ListGroup>
@@ -121,7 +127,7 @@ const PlaceOrderScreen = ({ history }) => {
                                     variant='danger'
                                     type='button'
                                     className='col-12'
-                                    disabled={cart.cartItems === 0}
+                                    disabled={cart.cartItems.length === 0}
                                     onClick={placeOrderHandler}
                                 >
                                     Place Order
@@ -133,6 +139,7 @@ const PlaceOrderScreen = ({ history }) => {
             </Row>
 
         </>
+
     )
 }
 

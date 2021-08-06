@@ -37,13 +37,13 @@ const userInfoFromLocalStorage = localStorage.getItem('userInfo') ?
     JSON.parse(localStorage.getItem('userInfo')) : null
 
 const shippingAddressFromLocalStorage = localStorage.getItem('shippingAddress') ?
-    JSON.parse(localStorage.getItem('shippingAddress')) : {}
+    JSON.parse(localStorage.getItem('shippingAddress')) : { address: '', city: '', postalCode: '', country: '' }
 
-const paymentMethodFromLocalStorage = localStorage.getItem('paymentMethod') ?
-    JSON.parse(localStorage.getItem('paymentMethod')) : {}
+// const paymentMethodFromLocalStorage = localStorage.getItem('paymentMethod') ?
+//     JSON.parse(localStorage.getItem('paymentMethod')) : {}
 
 const initialState = {
-    cart: { cartItems: cartItemsFromLocalStorage, shippingAddress: shippingAddressFromLocalStorage, paymentMethod: paymentMethodFromLocalStorage },
+    cart: { cartItems: cartItemsFromLocalStorage, shippingAddress: shippingAddressFromLocalStorage },
     userLogin: { userInfo: userInfoFromLocalStorage },
 
 }

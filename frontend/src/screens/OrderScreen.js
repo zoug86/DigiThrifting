@@ -7,7 +7,8 @@ import Loader from '../components/Loader'
 import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions'
 import { PayPalButton } from "react-paypal-button-v2";
 import axios from 'axios'
-import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET } from '../constants/orderConstants'
+import { CART_CLEAR_ITEMS } from '../constants/cartConstants'
 
 const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id
@@ -18,6 +19,7 @@ const OrderScreen = ({ match, history }) => {
     const { success: successPay, loading: loadingPay } = useSelector(state => state.orderPay)
     const { success: successDeliver, loading: loadingDeliver } = useSelector(state => state.orderDeliver)
     const { userInfo } = useSelector(state => state.userLogin)
+    // const { cartItems } = useSelector(state => state.cart)
 
     const addDecimals = (num) => {
         return (Math.round(num * 100) / 100).toFixed(2)
@@ -42,7 +44,7 @@ const OrderScreen = ({ match, history }) => {
             console.log(script)
         }
 
-        if (!order || successPay || successDeliver) {
+        if (!order || successPay || successDeliver || order._id !== orderId) {
             dispatch({ type: ORDER_PAY_RESET })
             dispatch({ type: ORDER_DELIVER_RESET })
             dispatch(getOrderDetails(orderId))
@@ -59,6 +61,7 @@ const OrderScreen = ({ match, history }) => {
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
+        // dispatch({ type: ORDER_DETAILS_RESET })
     }
 
     const deliverHandler = () => {

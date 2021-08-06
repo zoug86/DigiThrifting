@@ -9,7 +9,6 @@ import { listTopProducts } from '../actions/productActions'
 const ProductCarousel = () => {
     const dispatch = useDispatch()
     const { loading, error, products } = useSelector(state => state.productTopRated)
-    console.log(products)
     useEffect(() => {
         dispatch(listTopProducts())
     }, [dispatch])

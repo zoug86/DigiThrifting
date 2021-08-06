@@ -63,7 +63,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <p style={{ color: '#fec503' }}><i className="fas fa-map-marker-alt"></i> 3837 Midgard Place, Victoria, BC, V8P 2Z1</p>
+                <p style={{ color: '#fec503', marginTop: '3rem' }}><i className="fas fa-map-marker-alt"></i> 3837 Midgard Place, Victoria, BC, V8P 2Z1</p>
                 <div className="text-center"><i className="fas fa-ellipsis-h"></i></div>
 
                 <div className="row text-center">

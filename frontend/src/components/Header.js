@@ -5,13 +5,17 @@ import { logout } from '../actions/userActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Nav, Navbar, Container, NavDropdown } from 'react-bootstrap'
 import SearchBox from './SearchBox'
+import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../constants/orderConstants'
 
-const Header = () => {
+const Header = ({ history }) => {
     const dispatch = useDispatch()
     const { userInfo } = useSelector(state => state.userLogin)
 
     const logoutHandler = () => {
         dispatch(logout())
+        history.push('/login')
+        dispatch({ type: ORDER_DELIVER_RESET })
+        dispatch({ type: ORDER_PAY_RESET })
     }
     return (
         <header>
